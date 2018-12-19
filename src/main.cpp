@@ -117,7 +117,7 @@ void readDHT11data()
 
   value.number = t;
   indoorTempC.setValue(value);
-  value.number = t;
+  value.number = f;
   indoorTempF.setValue(value);
   value.number = h;
   indoorHum.setValue(value);
@@ -188,7 +188,6 @@ void setup()
 
   textDisplay.addProperty(&text);
   adapter->addDevice(&textDisplay);
-  adapter->begin();
 
   indoor.addProperty(&indoorTempC);
   indoor.addProperty(&indoorTempF);
