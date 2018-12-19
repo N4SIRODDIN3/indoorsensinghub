@@ -1,2 +1,9 @@
-# indoorsensinghub
-A NodeMCU ESP8266-based Indoor Sensing Hub.
+# Docs
+
+## Run
+
+``` $ pio run ```
+
+## Deploy to board
+
+``` $ platformio run --target upload ```

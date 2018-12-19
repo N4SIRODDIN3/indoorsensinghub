@@ -1,0 +1,3 @@
+.pioenvs
+.piolibdeps
+src/arduino_secrets.h
