@@ -38,21 +38,21 @@ const int textWidth = 6;
 const int width = 128;
 const int height = 32;
 
-int state = false; // by default, no motion detected
+bool state = false; // by default, no motion detected
 
 WebThingAdapter *adapter;
 
 const char *dht11Types[] = {nullptr};
 ThingDevice indoor("dht11", "Temperature & Humidity Sensor", dht11Types);
-ThingProperty indoorTempC("temperatureC", "", NUMBER, nullptr);
-ThingProperty indoorTempF("temperatureF", "", NUMBER, nullptr);
-ThingProperty indoorHum("humidity", "", NUMBER, nullptr);
-ThingProperty indoorHeatIndex("heatIndex", "", NUMBER, nullptr);
-ThingProperty indoorDewPoint("dewPoint", "", NUMBER, nullptr);
+ThingProperty indoorTempC("temperatureC", "Temperature in Celsius", NUMBER, nullptr);
+ThingProperty indoorTempF("temperatureF", "Temperature in Fahrenheit", NUMBER, nullptr);
+ThingProperty indoorHum("humidity", "Relative Humidity in Percentage", NUMBER, nullptr);
+ThingProperty indoorHeatIndex("heatIndex", "Heat Index", NUMBER, nullptr);
+ThingProperty indoorDewPoint("dewPoint", "Dew Point by NOAA Calculation", NUMBER, nullptr);
 
 const char *PIRTypes[] = {nullptr};
 ThingDevice motion("motion", "PIR Motion sensor", PIRTypes);
-ThingProperty motionDetected("motion", "", BOOLEAN, nullptr);
+ThingProperty motionDetected("motion", "Motion detected?", BOOLEAN, nullptr);
 
 const char *textDisplayTypes[] = {"TextDisplay", nullptr};
 ThingDevice textDisplay("textDisplay", "Text display", textDisplayTypes);
@@ -133,7 +133,7 @@ void motionDetectedInterrupt()
   state = !state;
 }
 
-Task t1(5000, TASK_FOREVER, &readDHT11data);
+Task t1(10000, TASK_FOREVER, &readDHT11data);
 Scheduler runner;
 
 void setup()
@@ -207,6 +207,8 @@ void setup()
 
   t1.enable();
   Serial.println("Enabled task t1");
+
+  state = false;
 }
 
 void loop()
